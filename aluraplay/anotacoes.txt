@@ -1,0 +1,10 @@
+
+    - Para recuperar um valor que foi enviado na requisação através de query parameters utilizamos da variável $_GET, Nessa variável nós temos acesso a todos os parâmetros enviados através da URL no formato de query string.
+
+    - Dentro um ponto único de entrada em nossa aplicação, podemos realizar um filtro em todas as requisições, realizar logs, carregar nosso código de autoload uma só vez, dentre várias outras vantagens que veremos mais à frente.
+
+
+    subindo servidor web similar ao usar o XAMPP:
+        cd C:\xampp\htdocs\AluraFormacoes\php\Php_web\aluraplay
+        php -S 0.0.0.0:8000 -t public/
+
