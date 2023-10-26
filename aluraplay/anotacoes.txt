@@ -1,10 +1,14 @@
+Isso aqui são algumas anotações feitas durante o desenvolvimento do projeto que podem ajudar no caso de alguém querer clonar este repositório. Também pode vim ajudar os novatos na área.
 
     - Para recuperar um valor que foi enviado na requisação através de query parameters utilizamos da variável $_GET, Nessa variável nós temos acesso a todos os parâmetros enviados através da URL no formato de query string.
 
     - Dentro um ponto único de entrada em nossa aplicação, podemos realizar um filtro em todas as requisições, realizar logs, carregar nosso código de autoload uma só vez, dentre várias outras vantagens que veremos mais à frente.
 
 
-    subindo servidor web similar ao usar o XAMPP:
+    subindo servidor web similar a usar o XAMPP:
+    1. entrando na pasta do projeto que no meu caso apesar de estar dentro do xammp não irei starta.
         cd C:\xampp\htdocs\AluraFormacoes\php\Php_web\aluraplay
+    2. esse coomando vai subir um servidor local para a pasta public que atualmente é a pasta das rotas por assim dizer. (esse comando pode ser modificado de acordo com a porta utilizada). 
         php -S 0.0.0.0:8000 -t public/
-
+    Em caso de erro, é so dar uma pesquisada no erro plotado no terminal, paciência é a chave pro sucesso. Os erros servem pra nos levar a resposta correta.
+    
