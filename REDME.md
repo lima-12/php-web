@@ -10,3 +10,4 @@
 - Não costumo postar muito os cursos aqui, mas estou tendo a disciplina de fazer do meu jeito, deixando bastante comentários sobre os aprendizados e indo devagar, não quero apenas copiar e colar o projeto dos profesores.
 - Aliás, percebi que pra quem procura focar no back-end, talvez eu esteja muito interado no front-end e fazendo diversos projetos. Por isso, agora irei atrás de focar nessa parte, mesmo acreditando ser importante estar interado em todas as áreas da tecnologia, por isso darei atenção a este projeto e deixarei de lado o meu pessoal com intuito de buscar conhecimento e aplicar posteriormente no qual eu estava desenvolvendo.
 - Dito isso, darei segmento ao desenvolvimento.
+- Um adeno devido as alterações feitas no projeto, eu criei essa nova branch chamada homologacao apenas para fins estudantis, visto que NORMALMENTE, em empregos reais costumamos desenvolver em branch's "alternativas".
