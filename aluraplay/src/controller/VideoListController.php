@@ -5,19 +5,17 @@ namespace Alura\Mvc\Controller;
 use Alura\Mvc\Repository\VideoRepository;
 use PDO;
 
-class VideoListController
+class VideoListController implements Controller
 {
-    private VideoRepository $VideoRepository;
 
-    public function __construct()
+    public function __construct(private VideoRepository $VideoRepository)
     {
-        $dbPath = __DIR__ . '/banco.sqlite';
-        $pdo = new PDO("sqlite:$dbPath");
-        $this->VideoRepository = new VideoRepository($pdo);
+
     }
 
     public function processarRequisicao(): void
     {
-
+        $videoList = $this->VideoRepository->all();
+        require_once __DIR__ . '/../../views/video_list.php';
     }
 }

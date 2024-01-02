@@ -10,10 +10,7 @@ class Video
     public readonly int $id;
     public readonly string $url;
 
-    public function __construct(
-        string $url,
-        public readonly string $title,
-    ) 
+    public function __construct(string $url, public readonly string $title) 
     {
         $this->setUrl($url);
     }

@@ -54,14 +54,23 @@ class VideoRepository
     public function all(): array
     {
         $videoList = $this->pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(
-            function(array $videoData){
-                $video = new Video($videoData['url'], $videoData['title']);
-                $video->setId($videoData['id']);
+        return array_map($this->hydrateVideo(...), $videoList);
+    }
 
-                return $video;
-            }, 
-            $videoList
-        );
+    public function find(int $id) 
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM videos WHERE id = ?;');
+        $statement->bindValue(1, $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $this->hydrateVideo($statement->fetch(PDO::FETCH_ASSOC));
+    }
+
+    public function hydrateVideo(array $videoData): Video
+    {
+        $video = New Video($videoData['url'], $videoData['title']);
+        $video->setId((int)$videoData['id']);
+
+        return $video;
     }
 }
