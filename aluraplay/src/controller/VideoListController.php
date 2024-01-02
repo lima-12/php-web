@@ -3,7 +3,6 @@
 namespace Alura\Mvc\Controller;
 
 use Alura\Mvc\Repository\VideoRepository;
-use PDO;
 
 class VideoListController implements Controller
 {
