@@ -19,7 +19,7 @@ Compatible" content="IE=edge">
 
             <div class="cabecalho__icones">
                 <a href="/novo_video" class="cabecalho__videos"></a>
-                <a href="./pages/login.html" class="cabecalho__sair">Sair</a>
+                <a href="/logout" class="cabecalho__sair">Sair</a>
             </div>
         </nav>
 
