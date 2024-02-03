@@ -15,10 +15,11 @@ class VideoRepository
 
     public function add(Video $video): bool
     {
-        $sql = 'INSERT INTO videos (url, title) VALUES (?, ?)';
+        $sql = 'INSERT INTO videos (url, title, image_path) VALUES (?, ?, ?)';
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $video->url);
         $statement->bindValue(2, $video->title);
+        $statement->bindValue(3, $video->getFilePath());
 
         $result = $statement->execute();
         $id = $this->pdo->lastInsertId();
@@ -39,11 +40,30 @@ class VideoRepository
 
     public function update(Video $video): bool
     {
-        $sql = 'UPDATE videos SET url = :url, title = :title WHERE id = :id;';
+
+        $sql = "";
+
+        $sql .= "
+            UPDATE videos SET 
+                    url = :url, 
+                    title = :title"
+        ;
+
+        if($video->getFilePath() !== null){
+            $sql .= ', image_path = :image_path';
+        }
+
+        $sql .= "
+            WHERE id = :id;
+        ";
+
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue( ':url', $video->url);
         $statement->bindValue( ':title', $video->title);
         $statement->bindValue( ':id', $video->id, PDO::PARAM_INT);
+        if($video->getFilePath() !== null){
+            $statement->bindValue( ':image_path', $video->getFilePath());
+        }
 
         return $statement->execute();
     }
@@ -70,6 +90,10 @@ class VideoRepository
     {
         $video = New Video($videoData['url'], $videoData['title']);
         $video->setId((int)$videoData['id']);
+        if($videoData['image_path']!==null){
+            $video->setFilePath($videoData['image_path']);
+        }
+        
 
         return $video;
     }
