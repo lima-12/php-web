@@ -39,14 +39,13 @@ class EditVideoController implements Controller
 
         if($_FILES['image']['error'] === UPLOAD_ERR_OK){
             move_uploaded_file(
-                $_FILES['image']['tmp_name'], 
+                $_FILES['image']['tmp_name'],
                 __DIR__ . "/../../public/img/uploads/" . $_FILES['image']['name']
-            );  
+            );
             $video->setFilePath($_FILES['image']['name']);
         }
 
         $videoUpdate = $repository->update($video);
-
 
         if ($videoUpdate === false){
             header('Location: /?sucesso=0');

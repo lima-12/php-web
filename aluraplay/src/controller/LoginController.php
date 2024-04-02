@@ -27,11 +27,19 @@ class LoginController implements Controller
     
         $userData = $statement->fetch(PDO::FETCH_ASSOC);
         
-        #não posso fazer a verificção dessa forma
-        #$userData['password'] === password_hash($password);
+        # não posso fazer a verificacao dessa forma
+        // $userData['password'] === password_hash($password);
 
-        #ao invés disso, vamos utilizar uma função que faz esse trabalho
+        # ao invés disso, vamos utilizar uma função que faz esse trabalho
         $correctPassword = password_verify($password, $userData['password'] ?? '');
+
+        # atualizando o hash de senha "antigas", se vier a surgir um hash melhor que o atual
+        if(password_needs_rehash($userData['password'], PASSWORD_ARGON2ID)) {
+            $statement = $this->pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
+            $statement->bindValue(1, password_hash($password, PASSWORD_ARGON2ID));
+            $statement->bindValue(2, $userData["id"]);
+            $statement->execute();
+        }
 
         if($correctPassword){
             $_SESSION['logado'] = true;
