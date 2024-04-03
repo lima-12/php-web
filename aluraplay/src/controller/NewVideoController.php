@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class EditVideoController implements RequestHandlerInterface
+class NewVideoController implements RequestHandlerInterface
 {
     use FlashMessageTrait;
 
@@ -21,37 +21,27 @@ class EditVideoController implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $queryParams = $request->getQueryParams();
+        $queryParams = $request->getParsedBody();
 
-        #$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-        $id = filter_var($queryParams['id'], FILTER_VALIDATE_INT);
-        if ($id === false || $id === null){
-            // header('Location: /?sucesso=0');
-            $this->addErrorMessage('Id inválido!');
-            return new Response(302, [
-                'Location' => '/'
-            ]);
-            // exit();
-        }
-        $url = filter_ver($queryParams['url'], FILTER_VALIDATE_URL);
+        $url = filter_var($queryParams['url'], FILTER_VALIDATE_URL);
         if ($url === false){
-            $this->addErrorMessage('Url inválido!');
+            $this->addErrorMessage("Url não informada!");
             return new Response(302, [
-                'Location' => '/'
+                'Location' => '/novo_video'
             ]);
         }
+
         $title = filter_var($queryParams['title']);
         if ($title === false){
-            $this->addErrorMessage('Title inválido!');
+            $this->addErrorMessage("Título não informado!");
             return new Response(302, [
-                'Location' => '/'
+                'Location' => '/novo_video'
             ]);
         }
 
-        $repository = $this->VideoRepository;
-
         $video = new Video($url, $title);
-        $video->setId($id);
+
+        // echo "<pre>"; print_r($_FILES); exit; #depurando
 
         if($_FILES['image']['error'] === UPLOAD_ERR_OK){
             move_uploaded_file(
@@ -61,18 +51,18 @@ class EditVideoController implements RequestHandlerInterface
             $video->setFilePath($_FILES['image']['name']);
         }
 
-        $videoUpdate = $repository->update($video);
+        $repository = $this->VideoRepository;
+        $video = $repository->add($video);
 
-        if ($videoUpdate === false){
-            $this->addErrorMessage('Erro ao editar video!');
+        if($video === false){
+            $this->addErrorMessage("Erro ao cadastrar vídeo!");
             return new Response(302, [
-                'Location' => '/'
+                'Location' => '/novo_video'
             ]);
         } else {
             return new Response(302, [
                 'Location' => '/'
             ]);
         }
-
     }
 }

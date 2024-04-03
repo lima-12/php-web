@@ -2,10 +2,17 @@
 
 namespace Alura\Mvc\Controller;
 
+use Alura\Mvc\Helper\FlashMessageTrait;
+use Nyholm\Psr7\Response;
 use PDO;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class LoginController implements Controller
+class LoginController implements RequestHandlerInterface
 {
+    use FlashMessageTrait;
+
     private PDO $pdo;
 
     public function __construct()
@@ -14,10 +21,15 @@ class LoginController implements Controller
         $this->pdo = new PDO("sqlite:$dbPath");
     }
 
-    public function processarRequisicao(): void
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-        $password = filter_input(INPUT_POST, 'password');
+
+        # $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        # $password = filter_input(INPUT_POST, 'password');
+
+        $queryParams = $request->getParsedBody();
+        $email = filter_var($queryParams['email'], FILTER_VALIDATE_EMAIL);
+        $password = filter_var($queryParams['password']);
     
         $sql = 'SELECT * FROM users WHERE email = ?';
         $statement = $this->pdo->prepare($sql);
@@ -33,6 +45,11 @@ class LoginController implements Controller
         # ao invés disso, vamos utilizar uma função que faz esse trabalho
         $correctPassword = password_verify($password, $userData['password'] ?? '');
 
+        if(!$correctPassword){
+            $this->addErrorMessage('Usuario ou Senha inválidos!');
+            return new Response(302, ['Location' => '/Login']);
+        }
+
         # atualizando o hash de senha "antigas", se vier a surgir um hash melhor que o atual
         if(password_needs_rehash($userData['password'], PASSWORD_ARGON2ID)) {
             $statement = $this->pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
@@ -41,11 +58,8 @@ class LoginController implements Controller
             $statement->execute();
         }
 
-        if($correctPassword){
-            $_SESSION['logado'] = true;
-            header('Location: /');
-        } else {
-            header('Location: /login?sucesso=0');
-        }
+        $_SESSION['logado'] = true;
+        return new Response(302, ['Location' => '/']);
+
     }
 }
