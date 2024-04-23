@@ -3,7 +3,7 @@
 </h1>
 
 <h4 align="center">
-    :construction: Projeto em Construção    :construction:
+    :construction: Projeto Finalizado    :construction:
 </h4>
 
 - Estou fazendo essa formação da alura de php e resolvi compartilhar aqui. Estou interado com os conceitos abordados e pela didática utilizada. Acredito que seja um bom aprendizado até a conclusão do curso, passando por assuntos como padrão mvc, abordando segurança e vendo o tema de API's. 
