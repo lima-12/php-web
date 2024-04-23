@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/inicio_html.php';
+$this->layout('layout');
 
 ?>
 
@@ -31,5 +31,3 @@ require_once __DIR__.'/inicio_html.php';
     <?php endforeach ?>
 </ul>
 
-<?php 
-require_once __DIR__.'/fim_html.php';
