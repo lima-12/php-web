@@ -11,4 +11,10 @@ subindo servidor web similar a usar o XAMPP:
 Em caso de erro, é so dar uma pesquisada no erro plotado no terminal, paciência é a chave pro sucesso. Os erros servem pra nos levar a resposta correta.
 3. ultima ponto que serve como dica, alguma vezes quando acessei diretamente o link que o terminal fornece ao subir o arquivo, dava um erro e eu tinha que acessar da seguinte forma, eu pego e jogo diretamente isso 'http://localhost:8000/' no navegador, por algum motivo isso acontecia, então pode ser que venha a ajudar alguém.
     
-    
+- Membro Protegido: É um membro acessível pela classe que o definiu, e também pelas classes que a estenderem. A classe que definir esse membro vai ter acesso ao mesmo, mas não só ela. Todas as classes que a estenderem também terão acesso a esse membro. Já os demais escopos não conseguirão acessá-lo.
+
+- Flash Message: É uma mensagem que aparece apenas uma vez. Ao recarregar a tela, ela some. O termo flash veio dessa ideia de ser de rápida duração. Normalmente, nós criamos flash messages usando sessões e apagando esse dado da sessão logo após ler seu conteúdo.
+
+- Traits: Elas não são um tipo, impedindo o polimorfismo. Ao usar uma trait, a classe não passa a ser representada por aquele tipo também. Sendo assim, códigos que dependam do código implementado na trait não podem depender de qualquer classe que possua aquela trait. Eles precisam depender diretamente de alguma das classes que a usam. Uma solução para esse cenário seria criar um interface.
+
+- Templates: Um layout é basicamente uma view especial, que define uma estrutura padrão para que as demais views a utilizem. Ao usar template engines nós podemos definir um template padrão, contendo os cabeçalhos, menus e tudo mais que for compartilhado entre diversas views (e ter vários layouts diferentes também). Com isso, podemos ter nossos arquivos de view mais simples, definindo apenas o pedaço de código que for específico para cada página.
